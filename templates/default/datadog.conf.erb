@@ -51,8 +51,8 @@ log_to_syslog: <%= node['datadog']['syslog']['active'] ? 'yes' : 'no' %>
 <% if node['datadog']['syslog']['udp'] -%>
 syslog_host: <%= node['datadog']['syslog']['host'] %>
 syslog_port: <%= node['datadog']['syslog']['port'] %>
-
 <% end -%>
+
 # ========================================================================== #
 # Legacy Integrations
 # ========================================================================== #
@@ -78,3 +78,11 @@ if node['datadog']['legacy_integrations']
   end
 end
 -%>
+
+
+# If you want to forward every packet received by the dogstatsd server
+# to another statsd server, uncomment these lines.
+<% if node['datadog']['statsd_forward_host'] -%>
+statsd_forward_host: <%= node['datadog']['statsd_forward_host'] %>
+statsd_forward_port: <%= node['datadog']['statsd_forward_port'] || 8125 %>
+<% end -%>
